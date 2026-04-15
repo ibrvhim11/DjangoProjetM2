@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>MICDA BLOG</title>
+        <link rel="stylesheet" href="{% static 'MICDA_BLOG/style.css' %}">
+    </head>
+
+    <body>
+   
+        <nav class="navbar">
+         <a href="/">Accueil</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}">Profil</a>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Déconnexion</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Connexion</a>
+            <a href="{% url 'register' %}">Inscription</a>
+        {% endif %}
+
+        {% if user.is_superuser %}
+            <span style="color:gold">Admin</span>
+        {% endif %}
+        </nav>
+
+        <div class="container">
+            {% block content %} {% endblock %}
+        </div>
+     
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends 'MICDA_BLOG/base.html' %}
+
+{% block content %}
+<div class="article-detail">
+    <h1>{{ article.titre }}</h1>
+
+    <div class="article-meta">
+        <p>Auteur : {{ article.auteur.username }}</p>
+        <p>Publié le : {{ article.date_publication | date:"d M Y H:i" }}</p>
+    </div>
+
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.titre }}">
+    {% endif %}
+
+    <p>{{ article.contenu }}</p>
+
+</div>
+<hr>
+
+<h3>Commentaires</h3>
+
+{% for commentaire in commentaires %}
+    <div>
+        {% if commentaire.utilisateur and commentaire.utilisateur.profile.photo %}
+            <img src="{{ commentaire.utilisateur.profile.photo.url }}" width="40" style="border-radius: 50%;">
+        {% endif %}
+            <strong>{{ commentaire.utilisateur.username | default:"Anonyme" }}</strong>
+            <p>{{ commentaire.contenu }}</p>
+    </div>
+{% empty %}
+    <p>Aucun commentaire pour cet article.</p>
+{% endfor %}
+
+<hr>
+
+{% if user.is_authenticated %}
+
+    <form method="POST">
+    {% csrf_token %}
+
+        <textarea name="contenu" required></textarea>
+        <button type="submit">Envoyer</button>
+    </form>
+
+{% else %}
+    <p>
+        Connectez-vous pour commenter.
+        <a href="{% url 'login' %}">Se connecter</a>
+    </p>
+{% endif %}
+{% endblock %}

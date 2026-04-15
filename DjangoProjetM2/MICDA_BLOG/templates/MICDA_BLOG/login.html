@@ -1,0 +1,20 @@
+{% extends 'MICDA_BLOG/base.html' %}
+
+{% block content %}
+<div class="auth-container">
+
+    <h2>Connexion</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <p class="ath-link">
+        Pas encore de compte ?
+        <a href="{% url 'register' %}">S'inscrire</a>
+    </p>
+</div>
+
+{% endblock %}

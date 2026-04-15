@@ -1,0 +1,12 @@
+{% extends 'MICDA_BLOG/base.html' %}
+{% block content %}
+
+<h2>Mon profil</h2>
+<p><strong>Nom d'utlisateur :</strong> {{ user.username }}</p>
+
+{% if user.profile.photo %}
+    <img src="{{ user.profile.photo.url }}" width="150">
+{% else %}
+    <p>Aucun photo</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'MICDA_BLOG/base.html' %}
+{% block content %}
+
+<h2>Ajouter un article</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Publier</button>
+</form>
+
+{% endblock %}

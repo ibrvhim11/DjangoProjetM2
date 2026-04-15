@@ -1,0 +1,30 @@
+        
+    {% extends 'MICDA_BLOG/base.html' %}
+    {% block content %}
+
+    <form method="GET">
+        <input type="text" name="q" placeholder="Rechercher un article...">
+    </form>
+
+    <h1>Articles</h1>
+
+    {% for article in articles %}
+        <div class="article-card">
+                <h2>{{ article.titre }}</h2>
+
+                {% if article.image %}
+                    <img src="{{ article.image.url }}" alt="{{ article.titre }}">
+                {% endif %}
+
+                <p>{{ article.contenu | truncatewords:20  }}</p>
+
+            <div class="article-meta">
+                <span> {{ article.auteur.username }}</span>
+                <span> {{ article.date_publication | date:"d M Y H:i" }}</span>
+            </div>
+
+            <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Lire plus</a>
+        </div>
+      
+    {% endfor %}
+   {% endblock %}
